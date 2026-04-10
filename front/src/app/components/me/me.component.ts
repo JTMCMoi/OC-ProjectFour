@@ -24,6 +24,7 @@ export class MeComponent implements OnInit {
   ngOnInit(): void {
     this.userService
       .getById(this.sessionService.sessionInformation!.id.toString())
+      //Souscription sur un httpClient -> Désabonnement optionnel
       .subscribe((user: User) => this.user = user);
   }
 
@@ -34,6 +35,7 @@ export class MeComponent implements OnInit {
   public delete(): void {
     this.userService
       .delete(this.sessionService.sessionInformation!.id.toString())
+      //Souscription sur un httpClient -> Désabonnement optionnel
       .subscribe((_) => {
         this.matSnackBar.open("Your account has been deleted !", 'Close', { duration: 3000 });
         this.sessionService.logOut();

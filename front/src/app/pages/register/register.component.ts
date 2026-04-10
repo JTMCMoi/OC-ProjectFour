@@ -54,6 +54,7 @@ export class RegisterComponent {
 
   public submit(): void {
     const registerRequest = this.form.value as RegisterRequest;
+    //Souscription sur un httpClient -> Désabonnement optionnel
     this.authService.register(registerRequest).subscribe({
         next: (_: void) => this.router.navigate(['/login']),
         error: _ => this.onError = true,

@@ -49,6 +49,7 @@ export class DetailComponent implements OnInit {
   public delete(): void {
     this.sessionApiService
       .delete(this.sessionId)
+      //Souscription sur un httpClient -> Désabonnement optionnel
       .subscribe((_: any) => {
           this.matSnackBar.open('Session deleted !', 'Close', { duration: 3000 });
           this.router.navigate(['sessions']);
@@ -57,21 +58,25 @@ export class DetailComponent implements OnInit {
   }
 
   public participate(): void {
+    //Souscription sur un httpClient -> Désabonnement optionnel
     this.sessionApiService.participate(this.sessionId, this.userId).subscribe(_ => this.fetchSession());
   }
 
   public unParticipate(): void {
+    //Souscription sur un httpClient -> Désabonnement optionnel
     this.sessionApiService.unParticipate(this.sessionId, this.userId).subscribe(_ => this.fetchSession());
   }
 
   private fetchSession(): void {
     this.sessionApiService
       .detail(this.sessionId)
+      //Souscription sur un httpClient -> Désabonnement optionnel
       .subscribe((session: Session) => {
         this.session = session;
         this.isParticipate = session.users.some(u => u === this.sessionService.sessionInformation!.id);
         this.teacherService
           .detail(session.teacher_id.toString())
+          //Souscription sur un httpClient -> Désabonnement optionnel
           .subscribe((teacher: Teacher) => this.teacher = teacher);
       });
   }

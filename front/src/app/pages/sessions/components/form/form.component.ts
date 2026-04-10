@@ -26,6 +26,7 @@ export class FormComponent implements OnInit {
 
   public onUpdate: boolean = false;
   public sessionForm: FormGroup | undefined;
+  //Souscription géré par un pipe 'async' dans le template -> Pas de désabonnement
   public teachers$ = this.teacherService.all();
   private id: string | undefined;
 
@@ -39,6 +40,7 @@ export class FormComponent implements OnInit {
       this.id = this.route.snapshot.paramMap.get('id')!;
       this.sessionApiService
         .detail(this.id)
+        //Souscription sur un httpClient -> Désabonnement optionnel
         .subscribe((session: Session) => this.initForm(session));
     } else {
       this.initForm();
@@ -51,10 +53,12 @@ export class FormComponent implements OnInit {
     if (!this.onUpdate) {
       this.sessionApiService
         .create(session)
+        //Souscription sur un httpClient -> Désabonnement optionnel
         .subscribe((_: Session) => this.exitPage('Session created !'));
     } else {
       this.sessionApiService
         .update(this.id!, session)
+        //Souscription sur un httpClient -> Désabonnement optionnel
         .subscribe((_: Session) => this.exitPage('Session updated !'));
     }
   }

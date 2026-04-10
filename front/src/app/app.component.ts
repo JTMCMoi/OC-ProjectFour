@@ -18,6 +18,7 @@ export class AppComponent {
   private sessionService = inject(SessionService);
 
   public $isLogged(): Observable<boolean> {
+    //Souscription géré par un pipe 'async' dans le template -> Pas de désabonnement
     return this.sessionService.$isLogged();
   }
 
