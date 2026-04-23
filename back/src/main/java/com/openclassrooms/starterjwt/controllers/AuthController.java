@@ -33,7 +33,6 @@ public class AuthController {
     public AuthController(AuthenticationManager authenticationManager,
                    PasswordEncoder passwordEncoder,
                    JwtUtils jwtUtils,
-                   UserRepository userRepository,
                    UserService userService
                 ) {
         this.authenticationManager = authenticationManager;
