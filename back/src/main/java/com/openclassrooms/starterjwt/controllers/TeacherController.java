@@ -1,5 +1,6 @@
 package com.openclassrooms.starterjwt.controllers;
 
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.mapper.TeacherMapper;
 import com.openclassrooms.starterjwt.models.Teacher;
 import com.openclassrooms.starterjwt.services.TeacherService;
@@ -30,7 +31,7 @@ public class TeacherController {
         Teacher teacher = this.teacherService.findById(id);
 
         if (teacher == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException();
         }
 
         return ResponseEntity.ok().body(this.teacherMapper.toDto(teacher));

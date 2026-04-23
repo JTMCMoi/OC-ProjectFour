@@ -1,5 +1,6 @@
 package com.openclassrooms.starterjwt.controllers;
 
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.mapper.UserMapper;
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.services.UserService;
@@ -34,7 +35,7 @@ public class UserController {
         User user = this.userService.findById(id);
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException();
         }
 
         return ResponseEntity.ok().body(this.userMapper.toDto(user));
@@ -46,7 +47,7 @@ public class UserController {
         User user = this.userService.findById(Long.valueOf(id));
 
         if (user == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException();
         }
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

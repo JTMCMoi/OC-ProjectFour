@@ -2,6 +2,7 @@ package com.openclassrooms.starterjwt.controllers;
 
 
 import com.openclassrooms.starterjwt.dto.SessionDto;
+import com.openclassrooms.starterjwt.exception.NotFoundException;
 import com.openclassrooms.starterjwt.mapper.SessionMapper;
 import com.openclassrooms.starterjwt.models.Session;
 import com.openclassrooms.starterjwt.services.SessionService;
@@ -39,7 +40,7 @@ public class SessionController {
         Session session = this.sessionService.getById(id);
 
         if (session == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException();
         }
 
         return ResponseEntity.ok().body(this.sessionMapper.toDto(session));
@@ -76,7 +77,7 @@ public class SessionController {
             Session session = this.sessionService.getById(id);
 
             if (session == null) {
-                return ResponseEntity.notFound().build();
+                throw new NotFoundException();
             }
 
             this.sessionService.delete(id);
