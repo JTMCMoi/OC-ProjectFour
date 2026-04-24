@@ -3,13 +3,16 @@ package com.openclassrooms.starterjwt.services;
 import com.openclassrooms.starterjwt.models.User;
 import com.openclassrooms.starterjwt.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void delete(Long id) {
@@ -30,5 +33,21 @@ public class UserService {
 
     public void save(User user) {
         this.userRepository.save(user);
+    }
+
+    public Boolean isAdmin(String username) {
+        User user = this.findByEmail(username);
+        if ( user != null ) return user.isAdmin();
+        return false;
+    }
+
+    public void create(String email, String lastName, String firstName, String password) {
+        this.save(new User(
+            email,
+            lastName,
+            firstName,
+            this.passwordEncoder.encode(password),
+            false
+        ));
     }
 }

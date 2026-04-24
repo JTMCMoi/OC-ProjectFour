@@ -24,12 +24,14 @@ import java.util.List;
 @RequestMapping("/api/session")
 @Log4j2
 public class SessionController {
+
     private final SessionMapper sessionMapper;
     private final SessionService sessionService;
 
-
-    public SessionController(SessionService sessionService,
-                             SessionMapper sessionMapper) {
+    public SessionController(
+        SessionService sessionService,
+        SessionMapper sessionMapper
+    ) {
         this.sessionMapper = sessionMapper;
         this.sessionService = sessionService;
     }
@@ -49,25 +51,20 @@ public class SessionController {
     @GetMapping()
     public ResponseEntity<?> findAll() {
         List<Session> sessions = this.sessionService.findAll();
-
         return ResponseEntity.ok().body(this.sessionMapper.toDto(sessions));
     }
 
     @PostMapping()
     public ResponseEntity<?> create(@Valid @RequestBody SessionDto sessionDto) {
         log.info(sessionDto);
-
         Session session = this.sessionService.create(this.sessionMapper.toEntity(sessionDto));
-
         log.info(session);
         return ResponseEntity.ok().body(this.sessionMapper.toDto(session));
     }
 
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable("id") Long id, @Valid @RequestBody SessionDto sessionDto) {
-
         Session session = this.sessionService.update(id, this.sessionMapper.toEntity(sessionDto));
-
         return ResponseEntity.ok().body(this.sessionMapper.toDto(session));
     }
 
@@ -86,17 +83,13 @@ public class SessionController {
 
     @PostMapping("{id}/participate/{userId}")
     public ResponseEntity<?> participate(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-
             this.sessionService.participate(id, userId);
-
             return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("{id}/participate/{userId}")
     public ResponseEntity<?> noLongerParticipate(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-
             this.sessionService.noLongerParticipate(id, userId);
-
             return ResponseEntity.ok().build();
     }
 }

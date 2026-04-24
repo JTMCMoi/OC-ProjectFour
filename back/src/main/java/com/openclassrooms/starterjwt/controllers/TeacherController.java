@@ -15,12 +15,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/teacher")
 public class TeacherController {
+    
     private final TeacherMapper teacherMapper;
     private final TeacherService teacherService;
 
-
-    public TeacherController(TeacherService teacherService,
-                             TeacherMapper teacherMapper) {
+    public TeacherController(
+        TeacherService teacherService,
+        TeacherMapper teacherMapper
+    ) {
         this.teacherMapper = teacherMapper;
         this.teacherService = teacherService;
     }
@@ -40,7 +42,6 @@ public class TeacherController {
     @GetMapping()
     public ResponseEntity<?> findAll() {
         List<Teacher> teachers = this.teacherService.findAll();
-
         return ResponseEntity.ok().body(this.teacherMapper.toDto(teachers));
     }
 }
