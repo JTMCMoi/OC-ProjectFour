@@ -5,10 +5,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { expect, jest } from '@jest/globals';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthService } from './core/service/auth.service';
 
 
