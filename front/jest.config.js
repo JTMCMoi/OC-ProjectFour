@@ -8,6 +8,7 @@ module.exports = {
   verbose: false,
   collectCoverage: false,
   coverageDirectory: './coverage/jest',
+  coverageReporters: ['html', 'lcov', 'text-summary'],
   testPathIgnorePatterns: ['<rootDir>/node_modules/'],
   coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
   coverageThreshold: {
